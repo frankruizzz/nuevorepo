@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            background-color: #080b1c;
+        }
+        header {
+            color: #fff;
+            padding: 5px;
+            text-align: center;
+        }
+        nav {
+            background-color: #403f85;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: #fff;
+            font-weight: bold;
+            text-decoration: none;
+            margin: 0 50px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+        }
+        section {
+            padding: 20px;
+        }
+        footer {
+            background-color: #403f85;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="sobre_mi.html" style="color:#080b1c">Sobre mí</a>
+        <a href="proyectos.html">Proyectos</a>
+        <a href="contacto.html" style="color:#080b1c">Contacto</a>
+        <a href="mostrar_tabla.php">Ver CRUD</a>
+    </nav>
+    <h1>Comentarios</h1>
+    <?php
+
+    include ('controller.php');
+    $con=connection();
+
+    $sql = "SELECT * FROM comment";
+    $result = $con->query($sql);
+
+    if ($result->num_rows > 0) {
+        echo "<table border='1'>
+            <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Comentario</th>
+            </tr>";
+    
+    while($row = $result->fetch_assoc()) {
+        echo "<tr>
+                <td>" . $row["name"]. "</td>
+                <td>" . $row["email"]. "</td>
+                <td>" . $row["commentary"]. "</td>
+              </tr>";
+    }
+    echo "</table>";
+} else {
+    echo "0 resultados";
+}
+?>
+    
+</body>
+</html>
